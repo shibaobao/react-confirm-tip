@@ -102,7 +102,7 @@ export class ConfirmTip {
         return (
           <div>
             <div style={{height:"35px",textAlign:"center",lineHeight:"35px",borderBottom:"1px solid #ddd"}}>
-              {jQuery.i18n.prop('tips_delete_tip')}
+              确认删除？
             </div>
             <div style={showLoading?{display:"none"}:{display:"flex",alignItems:"center",justifyContent:"center",height:"64px"}}>
               <button
@@ -110,17 +110,17 @@ export class ConfirmTip {
                 style={{marginRight:"10px"}}
                 onClick={this.props.onCancel.bind(this.props.self)}
               >
-                {jQuery.i18n.prop('button_cancel')}
+                取消
               </button>
               <button
                 className="btn btn-primary"
                 onClick={this.onConfirmClick}
               >
-                {jQuery.i18n.prop('button_confirm')}
+                确认
               </button>
             </div>
             <div style={showLoading?{display:"flex",alignItems:"center",justifyContent:"center",height:"64px"}:{display:"none"}}>
-              <img src="/dist/img/loading.gif" alt=""/>
+              <img src="dist/img/loading.gif" alt=""/>
             </div>
           </div>
         )
