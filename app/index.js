@@ -12,8 +12,8 @@ var TestComponent = React.createClass({
         alert('完成');
         tip.hide();
       },2000);
-    },()=>{
-
+    },()=>{},{
+      title:"测试"
     });
     tip.show(ev);
   },

@@ -63,7 +63,9 @@
 	        alert('完成');
 	        tip.hide();
 	      }, 2000);
-	    }, function () {});
+	    }, function () {}, {
+	      title: "测试"
+	    });
 	    tip.show(ev);
 	  },
 	  render: function render() {
@@ -101,33 +103,47 @@
 
 	var ConfirmTip = exports.ConfirmTip = function () {
 	  function ConfirmTip(onConfirm, onCancel) {
+	    var option = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+
 	    _classCallCheck(this, ConfirmTip);
 
 	    this.confirmMethod = onConfirm;
 	    this.cancelMethod = onCancel;
+	    this.option = option;
 	  }
 
 	  _createClass(ConfirmTip, [{
 	    key: 'show',
 	    value: function show(e) {
+	      if (document.querySelector('#confirmTip')) {
+	        this.hide();
+	      }
 	      var AppComponent = this.createElement(e);
-	      var container = document.getElementById('confirmTip');
 	      var left = this.getElementLeft(e.target);
 	      var top = this.getElementTop(e.target) - document.body.scrollTop;
-	      if (container) {
-	        container.style = 'left:' + (left - 210) + 'px;top:' + (top - 38) + 'px;';
-	      } else {
-	        container = document.createElement('div');
+	      var container = document.createElement('div');
+	      container.id = 'confirmTip';
+	      if (!this.option.position) {
 	        container.className = 'confirm-tip-container';
-	        container.id = 'confirmTip';
-	        container.style = 'left:' + (left - 210) + 'px;top:' + (top - 38) + 'px';
-	        document.body.appendChild(container);
-	        ReactDOM.render(React.createElement(AppComponent, {
-	          onConfirm: this.confirm,
-	          onCancel: this.cancel,
-	          self: this
-	        }), document.querySelector('#confirmTip'));
+	        container.style = 'left:' + (left - 220) + 'px;top:' + (top - 38) + 'px';
+	      } else {
+	        var correctLeft = 0;
+	        var correctTop = 0;
+	        switch (this.option.position) {
+	          case 'right':
+	            correctLeft = e.target.offsetWidth + 20;
+	            correctTop = -38;
+	        }
+	        container.style = 'left:' + (left + correctLeft) + 'px;top:' + (top + correctTop) + 'px';
+	        container.className = 'confirm-tip-container position-right';
 	      }
+	      document.body.appendChild(container);
+	      ReactDOM.render(React.createElement(AppComponent, {
+	        onConfirm: this.confirm,
+	        onCancel: this.cancel,
+	        title: this.option.title,
+	        self: this
+	      }), document.querySelector('#confirmTip'));
 	      var self = this;
 	      document.onclick = function (e) {
 	        e.stopPropagation();
@@ -145,13 +161,11 @@
 	    key: 'hide',
 	    value: function hide() {
 	      var container = document.getElementById('confirmTip');
-	      if (container) {
-	        container.style.display = "none";
-	        document.onclick = null;
-	        window.onscroll = null;
-	        if (resetMethod && typeof resetMethod == 'function') {
-	          resetMethod();
-	        }
+	      document.body.removeChild(container);
+	      document.onclick = null;
+	      window.onscroll = null;
+	      if (resetMethod) {
+	        resetMethod();
 	      }
 	    }
 	  }, {
@@ -206,7 +220,7 @@
 	            React.createElement(
 	              'div',
 	              { style: { height: "35px", textAlign: "center", lineHeight: "35px", borderBottom: "1px solid #ddd" } },
-	              '确认删除？'
+	              this.props.title ? this.props.title : "确认删除？"
 	            ),
 	            React.createElement(
 	              'div',
