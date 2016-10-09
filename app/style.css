@@ -7,7 +7,38 @@
   filter: drop-shadow(0 0 3px rgba(0,0,0,.2));
   background-color: #ffffff;
 }
-.confirm-tip-container:before{
+
+.fix-top:before{
+  content: '';
+  width: 0;
+  height: 0;
+  left: 98px;
+  top: 100px;
+  position: absolute;
+  border: 5px solid transparent;
+  border-top-color: #ffffff;
+}
+.fix-right:before{
+  content: '';
+  width: 0;
+  height: 0;
+  left: -10px;
+  top: 40px;
+  position: absolute;
+  border: 5px solid transparent;
+  border-right-color: #ffffff;
+}
+.fix-bottom:before{
+  content: '';
+  width: 0;
+  height: 0;
+  left: 98px;
+  top: -10px;
+  position: absolute;
+  border: 5px solid transparent;
+  border-bottom-color: #ffffff;
+}
+.fix-left:before{
   content: '';
   width: 0;
   height: 0;
@@ -16,7 +47,6 @@
   position: absolute;
   border: 5px solid transparent;
   border-left-color: #ffffff;
-  border-right-width: 0;
 }
 
 .btn{

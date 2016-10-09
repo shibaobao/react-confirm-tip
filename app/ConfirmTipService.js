@@ -16,6 +16,7 @@ export class ConfirmTip {
     }
     var AppComponent = this.createElement(e);
     var left = this.getElementLeft(e.target);
+    console.log(e.target.clientWidth)
     var top = this.getElementTop(e.target) - document.body.scrollTop;
     var container = document.createElement('div');
     container.id = 'confirmTip';
